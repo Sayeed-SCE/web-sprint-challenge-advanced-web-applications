@@ -1,45 +1,37 @@
-import React, { useState, useEffect } from "react";
-import PT from "prop-types";
-
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react'
+import PT from 'prop-types'
 
 const initialFormValues = {
-  username: "",
-  password: "",
-};
+  username: '',
+  password: '',
+}
 export default function LoginForm(props) {
-  const [values, setValues] = useState(initialFormValues);
-  // const [disabled, setDisabled] = useState(true)
+  const [values, setValues] = useState(initialFormValues)
+  
+  const {login} = props;
   // ✨ where are my props? Destructure them here
+  
+  const onChange = evt => {
+    const { id, value } = evt.target
+    setValues({ ...values, [id]: value })
+  }
 
-  const navigate = useNavigate();
-  const { setMessage, message, login } = props;
-
-  const onChange = (evt) => {
-    const { id, value } = evt.target;
-    setValues({ ...values, [id]: value });
-  };
-
-  const onSubmit = (evt) => {
+  const onSubmit = evt => {
     evt.preventDefault();
+    console.log(values);
+    login(values)
+    
     // ✨ implement
-    login(values);
-  };
+  }
 
   const isDisabled = () => {
+    
+    return values.username.trim().length >= 3 && values.password.trim().length >= 8 ? false : true;
     // ✨ implement
     // Trimmed username must be >= 3, and
     // trimmed password must be >= 8 for
     // the button to become enabled
-    if (
-      values.username.trim().length >= 3 &&
-      values.password.trim().length >= 8
-    ) {
-      return false;
-    } else {
-      return true;
-    }
-  };
+  }
 
   return (
     <form id="loginForm" onSubmit={onSubmit}>
@@ -58,14 +50,12 @@ export default function LoginForm(props) {
         placeholder="Enter password"
         id="password"
       />
-      <button disabled={isDisabled()} id="submitCredentials">
-        Submit credentials
-      </button>
+      <button disabled={isDisabled()} id="submitCredentials">Submit credentials</button>
     </form>
-  );
+  )
 }
 
 // 🔥 No touchy: LoginForm expects the following props exactly:
 LoginForm.propTypes = {
   login: PT.func.isRequired,
-};
+}
