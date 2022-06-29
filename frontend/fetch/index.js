@@ -91,4 +91,4 @@ const login = async (creds) => {
     return deleteRequest;
   };
   
-  export { login, getArticles, addArticle, editArticle, deleteArticle };a
+  export { login, getArticles, addArticle, editArticle, deleteArticle };
