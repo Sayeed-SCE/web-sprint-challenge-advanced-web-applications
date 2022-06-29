@@ -61,7 +61,7 @@ export default function App() {
     // to the Articles screen. Don't forget to turn off the spinner!
     setSpinnerOn(true);
     axios
-      .post("http://localhost:9000/api/login", { username, password })
+      .post(loginUrl, { username, password })
       .then((res) => {
         console.log(res);
         localStorage.setItem("token", res.data.token);
@@ -88,7 +88,7 @@ export default function App() {
     setSpinnerOn(true);
     const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:9000/api/articles", {
+      .get(articlesUrl, {
         headers: {
           authorization: token,
         },
@@ -113,7 +113,7 @@ export default function App() {
     const token = localStorage.getItem("token");
     axios
       .post(
-        "http://localhost:9000/api/articles",
+        articlesUrl,
         { title, text, topic },
         {
           headers: {
@@ -138,7 +138,7 @@ export default function App() {
     const token = localStorage.getItem("token");
 
     axios
-      .put(`http://localhost:9000/api/articles/${article_id}`, article, {
+      .put(`articlesUrl/${article_id}`, article, {
         headers: {
           authorization: token,
         },
@@ -159,7 +159,7 @@ export default function App() {
     // ✨ implement
     const token = localStorage.getItem("token");
     axios
-      .delete(`http://localhost:9000/api/articles/${article_id}`, {
+      .delete(`articlesURl/${article_id}`, {
         headers: {
           authorization: token,
         },
